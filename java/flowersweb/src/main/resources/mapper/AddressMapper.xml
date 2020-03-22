@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.flowersweb.dao.AddressMapper">
+  <resultMap id="BaseResultMap" type="com.hy.flowersweb.entity.Address">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="address_details" jdbcType="VARCHAR" property="address_details" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="postalCode" jdbcType="VARCHAR" property="postalCode" />
+    <result column="areaCode" jdbcType="VARCHAR" property="areaCode" />
+    <result column="isDefault" jdbcType="BIT" property="isDefault" />
+    <result column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="user_name" jdbcType="VARCHAR" property="user_name" />
+
+    <collection property="user" column="user_id"
+                javaType="com.hy.flowersweb.entity.User"
+                select="com.hy.flowersweb.dao.UserMapper.findById">
+    </collection>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    id, address, address_details, phone, name, postalCode, areaCode, isDefault, user_id, 
+    user_name
+  </sql>
+  <select id="selectByExample" parameterType="com.hy.flowersweb.entity.AddressExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from address
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from address
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    delete from address
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hy.flowersweb.entity.AddressExample">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    delete from address
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hy.flowersweb.entity.Address">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    insert into address (id, address, address_details, 
+      phone, name, postalCode, 
+      areaCode, isDefault, user_id, 
+      user_name)
+    values (#{id,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{address_details,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{postalCode,jdbcType=VARCHAR}, 
+      #{areaCode,jdbcType=VARCHAR}, #{isDefault,jdbcType=BIT}, #{user_id,jdbcType=INTEGER}, 
+      #{user_name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hy.flowersweb.entity.Address">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    insert into address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="address_details != null">
+        address_details,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="postalCode != null">
+        postalCode,
+      </if>
+      <if test="areaCode != null">
+        areaCode,
+      </if>
+      <if test="isDefault != null">
+        isDefault,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="user_name != null">
+        user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="address_details != null">
+        #{address_details,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="postalCode != null">
+        #{postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=BIT},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="user_name != null">
+        #{user_name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hy.flowersweb.entity.AddressExample" resultType="java.lang.Long">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    select count(*) from address
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    update address
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address_details != null">
+        address_details = #{record.address_details,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postalCode != null">
+        postalCode = #{record.postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaCode != null">
+        areaCode = #{record.areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDefault != null">
+        isDefault = #{record.isDefault,jdbcType=BIT},
+      </if>
+      <if test="record.user_id != null">
+        user_id = #{record.user_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.user_name != null">
+        user_name = #{record.user_name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    update address
+    set id = #{record.id,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      address_details = #{record.address_details,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      postalCode = #{record.postalCode,jdbcType=VARCHAR},
+      areaCode = #{record.areaCode,jdbcType=VARCHAR},
+      isDefault = #{record.isDefault,jdbcType=BIT},
+      user_id = #{record.user_id,jdbcType=INTEGER},
+      user_name = #{record.user_name,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hy.flowersweb.entity.Address">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    update address
+    <set>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="address_details != null">
+        address_details = #{address_details,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="postalCode != null">
+        postalCode = #{postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        areaCode = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        isDefault = #{isDefault,jdbcType=BIT},
+      </if>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="user_name != null">
+        user_name = #{user_name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hy.flowersweb.entity.Address">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    update address
+    set address = #{address,jdbcType=VARCHAR},
+      address_details = #{address_details,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      postalCode = #{postalCode,jdbcType=VARCHAR},
+      areaCode = #{areaCode,jdbcType=VARCHAR},
+      isDefault = #{isDefault,jdbcType=BIT},
+      user_id = #{user_id,jdbcType=INTEGER},
+      user_name = #{user_name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    insert into address
+    (id, address, address_details, phone, name, postalCode, areaCode, isDefault, user_id, 
+      user_name)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.address,jdbcType=VARCHAR}, #{item.address_details,jdbcType=VARCHAR}, 
+        #{item.phone,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.postalCode,jdbcType=VARCHAR}, 
+        #{item.areaCode,jdbcType=VARCHAR}, #{item.isDefault,jdbcType=BIT}, #{item.user_id,jdbcType=INTEGER}, 
+        #{item.user_name,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Thu Mar 19 17:39:39 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    insert into address (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'id'.toString() == column.value">
+          #{item.id,jdbcType=INTEGER}
+        </if>
+        <if test="'address'.toString() == column.value">
+          #{item.address,jdbcType=VARCHAR}
+        </if>
+        <if test="'address_details'.toString() == column.value">
+          #{item.address_details,jdbcType=VARCHAR}
+        </if>
+        <if test="'phone'.toString() == column.value">
+          #{item.phone,jdbcType=VARCHAR}
+        </if>
+        <if test="'name'.toString() == column.value">
+          #{item.name,jdbcType=VARCHAR}
+        </if>
+        <if test="'postalCode'.toString() == column.value">
+          #{item.postalCode,jdbcType=VARCHAR}
+        </if>
+        <if test="'areaCode'.toString() == column.value">
+          #{item.areaCode,jdbcType=VARCHAR}
+        </if>
+        <if test="'isDefault'.toString() == column.value">
+          #{item.isDefault,jdbcType=BIT}
+        </if>
+        <if test="'user_id'.toString() == column.value">
+          #{item.user_id,jdbcType=INTEGER}
+        </if>
+        <if test="'user_name'.toString() == column.value">
+          #{item.user_name,jdbcType=VARCHAR}
+        </if>
+      </foreach>
+      )
+    </foreach>
+  </insert>
+</mapper>

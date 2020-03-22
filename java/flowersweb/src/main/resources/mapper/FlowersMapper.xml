@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.flowersweb.dao.FlowersMapper">
+  <resultMap id="BaseResultMap" type="com.hy.flowersweb.entity.Flowers">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="flower_name" jdbcType="VARCHAR" property="flower_name" />
+    <result column="cover" jdbcType="VARCHAR" property="cover" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="main_image" jdbcType="VARCHAR" property="main_image" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="stock" jdbcType="VARCHAR" property="stock" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
+    <result column="flower_language" jdbcType="VARCHAR" property="flower_language" />
+    <result column="flower_material" jdbcType="VARCHAR" property="flower_material" />
+    <result column="category_id" jdbcType="INTEGER" property="category_id" />
+    <result column="store_id" jdbcType="INTEGER" property="store_id" />
+
+    <collection property="category" column="category_id"
+                javaType="com.hy.flowersweb.entity.Category"
+                select="com.hy.flowersweb.dao.CategoryMapper.findById">
+    </collection>
+
+    <collection property="store" column="store_id"
+                javaType="com.hy.flowersweb.entity.Store"
+                select="com.hy.flowersweb.dao.StoreMapper.findById">
+    </collection>
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hy.flowersweb.entity.Flowers">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    id, flower_name, cover, title, main_image, price, stock, status, create_time, update_time, 
+    flower_language, flower_material, category_id, store_id
+  </sql>
+  <sql id="Blob_Column_List">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    detail
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hy.flowersweb.entity.FlowersExample" resultMap="ResultMapWithBLOBs">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from flowers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hy.flowersweb.entity.FlowersExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from flowers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from flowers
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    delete from flowers
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hy.flowersweb.entity.FlowersExample">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    delete from flowers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hy.flowersweb.entity.Flowers">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    insert into flowers (id, flower_name, cover, 
+      title, main_image, price, 
+      stock, status, create_time, 
+      update_time, flower_language, flower_material, 
+      category_id, store_id, detail
+      )
+    values (#{id,jdbcType=INTEGER}, #{flower_name,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{main_image,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+      #{stock,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{create_time,jdbcType=TIMESTAMP}, 
+      #{update_time,jdbcType=TIMESTAMP}, #{flower_language,jdbcType=VARCHAR}, #{flower_material,jdbcType=VARCHAR}, 
+      #{category_id,jdbcType=INTEGER}, #{store_id,jdbcType=INTEGER}, #{detail,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hy.flowersweb.entity.Flowers">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    insert into flowers
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="flower_name != null">
+        flower_name,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="main_image != null">
+        main_image,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="update_time != null">
+        update_time,
+      </if>
+      <if test="flower_language != null">
+        flower_language,
+      </if>
+      <if test="flower_material != null">
+        flower_material,
+      </if>
+      <if test="category_id != null">
+        category_id,
+      </if>
+      <if test="store_id != null">
+        store_id,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="flower_name != null">
+        #{flower_name,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="main_image != null">
+        #{main_image,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flower_language != null">
+        #{flower_language,jdbcType=VARCHAR},
+      </if>
+      <if test="flower_material != null">
+        #{flower_material,jdbcType=VARCHAR},
+      </if>
+      <if test="category_id != null">
+        #{category_id,jdbcType=INTEGER},
+      </if>
+      <if test="store_id != null">
+        #{store_id,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hy.flowersweb.entity.FlowersExample" resultType="java.lang.Long">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    select count(*) from flowers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    update flowers
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.flower_name != null">
+        flower_name = #{record.flower_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cover != null">
+        cover = #{record.cover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.main_image != null">
+        main_image = #{record.main_image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.stock != null">
+        stock = #{record.stock,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.create_time != null">
+        create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.update_time != null">
+        update_time = #{record.update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flower_language != null">
+        flower_language = #{record.flower_language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flower_material != null">
+        flower_material = #{record.flower_material,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category_id != null">
+        category_id = #{record.category_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.store_id != null">
+        store_id = #{record.store_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.detail != null">
+        detail = #{record.detail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    update flowers
+    set id = #{record.id,jdbcType=INTEGER},
+      flower_name = #{record.flower_name,jdbcType=VARCHAR},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      main_image = #{record.main_image,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      stock = #{record.stock,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      update_time = #{record.update_time,jdbcType=TIMESTAMP},
+      flower_language = #{record.flower_language,jdbcType=VARCHAR},
+      flower_material = #{record.flower_material,jdbcType=VARCHAR},
+      category_id = #{record.category_id,jdbcType=INTEGER},
+      store_id = #{record.store_id,jdbcType=INTEGER},
+      detail = #{record.detail,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    update flowers
+    set id = #{record.id,jdbcType=INTEGER},
+      flower_name = #{record.flower_name,jdbcType=VARCHAR},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      main_image = #{record.main_image,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      stock = #{record.stock,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      update_time = #{record.update_time,jdbcType=TIMESTAMP},
+      flower_language = #{record.flower_language,jdbcType=VARCHAR},
+      flower_material = #{record.flower_material,jdbcType=VARCHAR},
+      category_id = #{record.category_id,jdbcType=INTEGER},
+      store_id = #{record.store_id,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hy.flowersweb.entity.Flowers">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    update flowers
+    <set>
+      <if test="flower_name != null">
+        flower_name = #{flower_name,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="main_image != null">
+        main_image = #{main_image,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        update_time = #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flower_language != null">
+        flower_language = #{flower_language,jdbcType=VARCHAR},
+      </if>
+      <if test="flower_material != null">
+        flower_material = #{flower_material,jdbcType=VARCHAR},
+      </if>
+      <if test="category_id != null">
+        category_id = #{category_id,jdbcType=INTEGER},
+      </if>
+      <if test="store_id != null">
+        store_id = #{store_id,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hy.flowersweb.entity.Flowers">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    update flowers
+    set flower_name = #{flower_name,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      main_image = #{main_image,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      stock = #{stock,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP},
+      flower_language = #{flower_language,jdbcType=VARCHAR},
+      flower_material = #{flower_material,jdbcType=VARCHAR},
+      category_id = #{category_id,jdbcType=INTEGER},
+      store_id = #{store_id,jdbcType=INTEGER},
+      detail = #{detail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hy.flowersweb.entity.Flowers">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    update flowers
+    set flower_name = #{flower_name,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      main_image = #{main_image,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      stock = #{stock,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP},
+      flower_language = #{flower_language,jdbcType=VARCHAR},
+      flower_material = #{flower_material,jdbcType=VARCHAR},
+      category_id = #{category_id,jdbcType=INTEGER},
+      store_id = #{store_id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    insert into flowers
+    (id, flower_name, cover, title, main_image, price, stock, status, create_time, update_time, 
+      flower_language, flower_material, category_id, store_id, detail)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.flower_name,jdbcType=VARCHAR}, #{item.cover,jdbcType=VARCHAR}, 
+        #{item.title,jdbcType=VARCHAR}, #{item.main_image,jdbcType=VARCHAR}, #{item.price,jdbcType=DOUBLE}, 
+        #{item.stock,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, #{item.create_time,jdbcType=TIMESTAMP}, 
+        #{item.update_time,jdbcType=TIMESTAMP}, #{item.flower_language,jdbcType=VARCHAR}, 
+        #{item.flower_material,jdbcType=VARCHAR}, #{item.category_id,jdbcType=INTEGER}, 
+        #{item.store_id,jdbcType=INTEGER}, #{item.detail,jdbcType=LONGVARCHAR})
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated  This element was generated on Wed Feb 26 16:28:12 CST 2020. by MyBatis Generator, do not modify.
+    -->
+    insert into flowers (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'id'.toString() == column.value">
+          #{item.id,jdbcType=INTEGER}
+        </if>
+        <if test="'flower_name'.toString() == column.value">
+          #{item.flower_name,jdbcType=VARCHAR}
+        </if>
+        <if test="'cover'.toString() == column.value">
+          #{item.cover,jdbcType=VARCHAR}
+        </if>
+        <if test="'title'.toString() == column.value">
+          #{item.title,jdbcType=VARCHAR}
+        </if>
+        <if test="'main_image'.toString() == column.value">
+          #{item.main_image,jdbcType=VARCHAR}
+        </if>
+        <if test="'price'.toString() == column.value">
+          #{item.price,jdbcType=DOUBLE}
+        </if>
+        <if test="'stock'.toString() == column.value">
+          #{item.stock,jdbcType=VARCHAR}
+        </if>
+        <if test="'status'.toString() == column.value">
+          #{item.status,jdbcType=INTEGER}
+        </if>
+        <if test="'create_time'.toString() == column.value">
+          #{item.create_time,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'update_time'.toString() == column.value">
+          #{item.update_time,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'flower_language'.toString() == column.value">
+          #{item.flower_language,jdbcType=VARCHAR}
+        </if>
+        <if test="'flower_material'.toString() == column.value">
+          #{item.flower_material,jdbcType=VARCHAR}
+        </if>
+        <if test="'category_id'.toString() == column.value">
+          #{item.category_id,jdbcType=INTEGER}
+        </if>
+        <if test="'store_id'.toString() == column.value">
+          #{item.store_id,jdbcType=INTEGER}
+        </if>
+        <if test="'detail'.toString() == column.value">
+          #{item.detail,jdbcType=LONGVARCHAR}
+        </if>
+      </foreach>
+      )
+    </foreach>
+  </insert>
+
+  <select id="findById" resultMap="BaseResultMap">
+    select * from flowers
+    where
+    id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

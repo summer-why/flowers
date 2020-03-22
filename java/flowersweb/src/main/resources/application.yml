@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
+    url: jdbc:mysql://127.0.0.1:3306/flowers?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+
+server:
+  port: 3333
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+
+
+#pagehelper配置项
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql
+
+
